@@ -27,15 +27,18 @@ fail_count = 0
 for each_wav in wav_list:
     no_ext = each_wav[:-3]
     output = no_ext + "mp3"
-    (
-        ffmpeg
-        .input(each_wav)
-        .output(output)
-        .run()
-    )
     if os.path.exists(output):
-        f.write("Successfully created mp3 at ", output)
+        print("mp3 already exists at ", output)
+    if not os.path.exists(output):
+        (
+            ffmpeg
+            .input(each_wav)
+            .output(output)
+            .run()
+        )
+    if os.path.exists(output):
+        f.write("Successfully created mp3 at " + output)
         success_count = success_count + 1
 
     else:
-        f.write("Failed to create mp3 at ", each_wav)
+        f.write("Failed to create mp3 at " + each_wav)
