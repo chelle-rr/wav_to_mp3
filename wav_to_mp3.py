@@ -19,6 +19,10 @@ for each_path in paths_to_search:
             wavpath = os.path.join(dirpath, filename)
             wav_list.append(wavpath)
 
+f = open("wav_to_mp3_results.txt", "x")
+
+success_count = 0
+fail_count = 0
 
 for each_wav in wav_list:
     no_ext = each_wav[:-3]
@@ -30,3 +34,8 @@ for each_wav in wav_list:
         .run()
     )
     if os.path.exists(output):
+        f.write("Successfully created mp3 at ", output)
+        success_count = success_count + 1
+
+    else:
+        f.write("Failed to create mp3 at ", each_wav)
